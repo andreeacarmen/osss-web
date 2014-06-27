@@ -6,5 +6,10 @@ app=flask.Flask(__name__)
 def home():
 	return flask.render_template('home.html')
 
-app.run()
+@app.route('/save')
+def save():
+    print "saving..."
+    return 'ok'
+
+app.run(debug=True)
 
