@@ -12,7 +12,7 @@ class Product(db.Model):
 
 @app.route('/')
 def home():
-	return flask.render_template('home.html')
+	return flask.render_template('home.html', product_list=Product.query.all())
 
 @app.route('/save', methods=['POST'])
 def save():
@@ -22,6 +22,11 @@ def save():
     db.session.commit()
     flask.flash("produs salvat")
     return flask.redirect('/')
+
+@app.route('/edit/<int:product_id>')
+def edit(product_id):
+    product = Product.query.get(product_id)
+    return 'editing %r' %product
 
 db.create_all()
 app.run(debug=True)
