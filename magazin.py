@@ -51,6 +51,18 @@ def api_product(product_id):
         'name':product.name,
     })
 
+@app.route('/api/product/create', methods=['POST'])
+def api_product_create():
+    data = flask.request.get_json()
+    product=Product(name=data['name'])
+    db.session.add(product)
+    db.session.commit()
+    return flask.jsonify({'status':'ok','id':123})
+
+#@app.route('api/product/<int:porduct_id>/update', methods=['POST'])
+#def api_product_update(product_id):
+
+
 db.create_all()
 app.run(debug=True)
 
